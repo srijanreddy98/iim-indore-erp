@@ -9,6 +9,7 @@ var routes = (app) => {
     '/auth/google/callback',
      passport.authenticate('google'),
     (req, res) => {
+      console.log(req);
       res.redirect('/api/current_user');
     }
   );

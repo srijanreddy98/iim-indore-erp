@@ -22,20 +22,28 @@ passport.use(
   (accessToken,refreshToken, profile, done) => {
     User.findOne({googleId: profile.id}).then(
       (doc) => {
-        if(doc) {
+        if (doc && doc.email === profile.emails[0].value) {
           console.log(doc);
           done(null, doc);
         } else {
-          var user = new User({
-            googleId: profile.id,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            email: profile.emails[0].value
-          });
-          user.save().then(
-            (res) => {console.log('Success'); done(null, res);},
-            (err) => console.log('Failure')
-          );
+          User.findOne({ email: profile.emails[0].value }).then(
+            (docu) => {
+              if (docu){
+                var user = new User({
+                  googleId: profile.id,
+                  firstName: profile.name.givenName,
+                  lastName: profile.name.familyName,
+                });
+                user.save().then(
+                  (res) => { console.log('Success'); done(null, res); },
+                  (err) => console.log('Failure')
+                );
+              } else {
+                done(null, null);
+              }
+            }
+          )
+         
         }
       }
     )
