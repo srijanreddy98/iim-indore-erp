@@ -8,7 +8,7 @@ const {routes} = require('./routes/authRoutes');
 const {User} = require('./models/models');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/iim-indore');
+mongoose.connect('mongodb://srijanreddy98:chintu98@ds161336.mlab.com:61336/iimindoredb');
 const app = express();
 app.use(
   cookieSession({
