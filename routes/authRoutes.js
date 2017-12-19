@@ -13,7 +13,7 @@ var routes = (app) => {
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);
   });
-  app.get('/', (req, res) {
+  app.get('/', (req, res) => {
     res.send("Its Working");
   });
 }
