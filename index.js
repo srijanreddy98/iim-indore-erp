@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 // const {keys} = require('./keys/keys');
 // require('./services/passport');
 const {routes} = require('./routes/authRoutes');
+console.log('hey');
 // const {User} = require('./models/models');
 //
 // mongoose.Promise = global.Promise;
