@@ -8,10 +8,10 @@ var routes = (app) => {
   app.get(
     '/auth/google/callback',
      passport.authenticate('google')
-    // (req, res) => {
-    //   // console.log(req);
-    //   res.redirect('/api/current_user');
-    // }
+    (req, res) => {
+      // console.log(req);
+      res.redirect('/api/current_user');
+    }
   );
   app.get(
     '/api/records',
@@ -28,10 +28,11 @@ var routes = (app) => {
     res.send('Logged Out');
   })
   app.get('/api/current_user', (req, res) => {
-    if (req.query.client){
-      res.send(req.user);
-    }
-    res.redirect('http://iim-indore-erp.s3-website.ap-south-1.amazonaws.com/user/attendance');
+    // if (req.query.client){
+    //   res.send(req.user);
+    // }
+    // res.redirect('http://iim-indore-erp.s3-website.ap-south-1.amazonaws.com/user/attendance');
+    res.send(req.user);
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
