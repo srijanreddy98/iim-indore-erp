@@ -31,7 +31,7 @@ var routes = (app) => {
     if (req.query.client){
       res.send(req.user);
     }
-    res.redirect('http://localhost:4200/user/attendance');
+    res.redirect('http://iim-indore-erp.s3-website.ap-south-1.amazonaws.com/user/attendance');
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
