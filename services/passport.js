@@ -23,27 +23,27 @@ passport.use(
     User.findOne({googleId: profile.id}).then(
       (doc) => {
         if (doc && doc.email === profile.emails[0].value) {
-          console.log(doc);
           done(null, doc);
         } else {
           User.findOne({ email: profile.emails[0].value }).then(
             (docu) => {
               if (docu){
-                var user = new User({
-                  googleId: profile.id,
-                  firstName: profile.name.givenName,
-                  lastName: profile.name.familyName,
+                User.update({ email: profile.emails[0].value }, { $set: { googleId: profile.id,
+                firstName: profile.name.givenName,
+                lastName: profile.name.familyName,}}, (err , res) => {
+                  if(err) {
+                    console.log('Error');
+                  } else {
+                    console.log('Success');
+                    done(null, res);
+                  }
                 });
-                user.save().then(
-                  (res) => { console.log('Success'); done(null, res); },
-                  (err) => console.log('Failure')
-                );
               } else {
                 done(null, null);
               }
             }
           )
-         
+
         }
       }
     )

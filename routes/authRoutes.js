@@ -1,5 +1,5 @@
 const passport = require('passport');
-
+const {User, Record} = require('../models/models');
 var routes = (app) => {
   app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
@@ -9,8 +9,18 @@ var routes = (app) => {
     '/auth/google/callback',
      passport.authenticate('google'),
     (req, res) => {
-      console.log(req);
+      // console.log(req);
       res.redirect('/api/current_user');
+    }
+  );
+  app.get(
+    '/api/records',
+    (req, res) => {
+      console.log(req.headers.body);
+      Record.find({Roll_No: req.headers.body}).then(
+        (docs) => {console.log(docs);res.send(docs);},
+        (err) => console.log(err)
+      );
     }
   );
   app.get('/api/logout', (req, res) => {
@@ -18,7 +28,10 @@ var routes = (app) => {
     res.send('Logged Out');
   })
   app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
+    if (req.query.client){
+      res.send(req.user);
+    }
+    res.redirect('http://localhost:4200/user/attendance');
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
