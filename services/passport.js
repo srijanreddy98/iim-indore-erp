@@ -4,6 +4,7 @@ const {keys} = require('../keys/keys');
 const {User} = require('../models/models');
 
 passport.serializeUser( (user, done) => {
+  // console.log(user);
   done(null, user.id);
 });
 passport.deserializeUser((id,done) => {
@@ -17,6 +18,7 @@ passport.use(
     clientID: keys.clientID,
     clientSecret: keys.client_secret,
     callbackURL: '/auth/google/callback',
+    proxy: true
   },
   (accessToken,refreshToken, profile, done) => {
     User.findOne({googleId: profile.id}).then(
@@ -27,13 +29,15 @@ passport.use(
           User.findOne({ email: profile.emails[0].value }).then(
             (docu) => {
               if (docu){
-                User.update({ email: profile.emails[0].value }, { $set: { googleId: profile.id,
+                User.findOneAndUpdate({ email: profile.emails[0].value }, { $set: { googleId: profile.id,
                 firstName: profile.name.givenName,
-                lastName: profile.name.familyName,}}, (err , res) => {
+                lastName: profile.name.familyName,}},{new: true}, (err , res) => {
+                  console.log(res);
                   if(err) {
                     console.log('Error');
                   } else {
                     console.log('Success');
+
                     done(null, res);
                   }
                 });

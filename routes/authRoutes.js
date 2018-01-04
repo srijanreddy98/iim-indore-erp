@@ -18,7 +18,7 @@ var routes = (app) => {
     (req, res) => {
       console.log(req.headers.body);
       Record.find({Roll_No: req.headers.body}).then(
-        (docs) => {console.log(docs);res.send(docs);},
+        (docs) => {res.send(docs);},
         (err) => console.log(err)
       );
     }
@@ -28,11 +28,10 @@ var routes = (app) => {
     res.send('Logged Out');
   })
   app.get('/api/current_user', (req, res) => {
-    // if (req.query.client){
-    //   res.send(req.user);
-    // }
-    // res.redirect('http://iim-indore-erp.s3-website.ap-south-1.amazonaws.com/user/attendance');
-    res.send(req.user);
+    if (req.query.client){
+      res.send(req.user);
+    }
+    res.redirect('/client/user');
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
