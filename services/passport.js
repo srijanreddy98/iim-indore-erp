@@ -32,7 +32,7 @@ passport.use(
                 User.findOneAndUpdate({ email: profile.emails[0].value }, { $set: { googleId: profile.id,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,}},{new: true}, (err , res) => {
-                  console.log(res);
+                  // console.log(res);
                   if(err) {
                     console.log('Error');
                   } else {
