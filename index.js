@@ -17,7 +17,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(__dirname+'/dist'));
+app.use(express.static(__dirname+'/dist'));
 // app.use(express.static('dist'));
 app.use(
   cookieSession({
@@ -25,9 +25,9 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
-// app.get('/client/*', function (req, res) {
-// res.sendFile(path.join(__dirname+'/dist','index.html'));
-// });
+app.get('/client/*', function (req, res) {
+res.sendFile(path.join(__dirname+'/dist','index.html'));
+});
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 // var err = new Error('Not Found It');
