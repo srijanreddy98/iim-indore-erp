@@ -53,7 +53,7 @@ var routes = (app) => {
     if (req.query.client){
       res.send(req.user);
     }
-    res.redirect('/client/user');
+    res.redirect('/client/user/attendance');
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
