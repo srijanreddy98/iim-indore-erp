@@ -1,6 +1,7 @@
 const passport = require('passport');
 const moment = require('moment');
-const {User, Record, Subject, TimeTable} = require('../models/models');
+const path = require('path');
+const { User, Record, Subject, TimeTable, StudentReport} = require('../models/models');
 var routes = (app) => {
   app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
@@ -57,6 +58,19 @@ var routes = (app) => {
   });
   app.get('/', (req, res) => {
     res.send("Its Working");
+  });
+  app.get('/api/upload', (req, res) => res.sendFile(path.join(__dirname + '/../dist', 'fileupload.html')));
+  app.get('/api/admin/getReports', (req,res) => {
+    StudentReport.find().then(
+      (docs) => res.send(docs),
+      (err) => res.send(err) 
+    );
+  });
+  app.get('/api/admin/getRecordData', (req,res) => {
+    Record.findById(req.query.id).then(
+      (doc) => res.send(doc),
+      (err) => res.send(err)
+    );
   });
 }
 module.exports = {

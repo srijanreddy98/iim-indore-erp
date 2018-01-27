@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin file upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    Users
+    <form action="/api/upload/users" method="POST" enctype="multipart/form-data">
+        <input type="file" name="users">
+        <button type="submit">Submit</button>
+    </form><br>
+    Records
+    <form action="/api/upload/records" method="POST" enctype="multipart/form-data">
+        <input type="file" name="records">
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    Subjects
+    <form action="/api/upload/subjects" method="POST" enctype="multipart/form-data">
+        <input type="file" name="subjects">
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+     Subjects Names
+    <form action="/api/upload/subjectNames" method="POST" enctype="multipart/form-data">
+        <input type="file" name="subjectNames">
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    Timetable
+    <form action="/api/upload/timetable" method="POST" enctype="multipart/form-data">
+        <input type="file" name="timetable">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

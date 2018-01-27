@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const {ObjectID} = require('mongodb');
 
 const userSchema = new Schema({
     googleId: {
@@ -15,7 +16,11 @@ const userSchema = new Schema({
         default: null
     },
     email: String,
-    rollNo: String
+    rollNo: String,
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
 });
 
 const attendenceSchema = new Schema({
@@ -43,9 +48,24 @@ const timeTableSchema = new Schema({
     Session_No: String,
     ClassRoom: String
 });
-
+const studentReportSchema = new Schema({
+    AttendanceId: String,
+    StudentProblem: {
+      type: String,
+      default: ''
+    },
+    AdminResponse: {
+      type: String,
+      default: null
+    },
+    Responded: {
+      type: Boolean,
+      default: false
+    }
+});
 var User = mongoose.model('users', userSchema);
 var Record = mongoose.model('records', attendenceSchema);
 var Subject = mongoose.model('subjects', subjectsSchema);
 var TimeTable = mongoose.model('timeTable', timeTableSchema);
-module.exports = { User, Record, Subject, TimeTable };
+var StudentReport = mongoose.model('studentReport', studentReportSchema);
+module.exports = { User, Record, Subject, TimeTable, StudentReport };
