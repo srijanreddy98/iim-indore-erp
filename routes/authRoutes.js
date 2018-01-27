@@ -72,6 +72,22 @@ var routes = (app) => {
       (err) => res.send(err)
     );
   });
+  app.post('/api/report' , (req,res) => {
+    StudentReport.findOne({AttendanceId: req.body.id}).then(
+      (doc) => {
+        if (doc){
+          res.status(400).send({error: "Record Already Exists"});
+        } else {
+          var rep = new StudentReport({ AttendanceId: req.body.id });
+          rep.save().then(
+            (doc) => res.send(doc),
+            (err) => res.status(500).send(err)
+          );
+        }
+      },
+      (err) => console.log(err)
+    );
+  });
 }
 module.exports = {
   routes
