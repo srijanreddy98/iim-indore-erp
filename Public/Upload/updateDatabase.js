@@ -11,7 +11,7 @@ var updateTimeTable = () => {
     var toPush = [];
     var Date = '';
     var Day = '';
-    for (i of xlData2) {
+    for (i of xlData) {
         var j = 1;
         if (i.Date) {
             var da = i.Date.split('/');
