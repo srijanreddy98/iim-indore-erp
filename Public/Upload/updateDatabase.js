@@ -45,7 +45,7 @@ var updateTimeTable = () => {
 
 var updateSubjects = () => {
     Subject.remove({}, function (err) { if (err) return handleError(err); });
-    var workbook = XLSX.readFile('./Public/Upload/subjects.xlsx');
+    var workbook = XLSX.readFile('./Public/Upload/subjectNames.xlsx');
     var sheet_name_list = workbook.SheetNames;
     var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
     var subs = [];
@@ -53,9 +53,10 @@ var updateSubjects = () => {
         k = i.SUBJECT;
         subs.push(k);
     }
-    var workbook = XLSX.readFile('./Public/Upload/subjectNames.xlsx');
+    var workbook = XLSX.readFile('./Public/Upload/subjects.xlsx');
     var sheet_name_list = workbook.SheetNames;
     var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+    var j =0 ;
     for (i of xlData) {
         for ( sub of subs) {
             if(i[sub]) {// console.log(sub, i.Roll_No);
