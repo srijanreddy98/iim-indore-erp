@@ -88,6 +88,9 @@ var routes = (app) => {
       (err) => console.log(err)
     );
   });
+  app.get('/api/admin/downloadRecords', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../Public/Upload', 'myImage.PNG'));
+  });
 }
 module.exports = {
   routes
