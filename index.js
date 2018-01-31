@@ -83,9 +83,13 @@ app.post('/api/upload/timetable', (req, res) => {
   uploadTimetable(req, res, (err) => {
     if (!err) {
       console.log(req.file);
-      updateTimeTable();
-      res.send('success');
+      var re = updateTimeTable();
+      if (re){;
+        res.send(`Error, couldn't process ${re}`);
+    } else {
+        res.send('success');
     }
+  }
   })
 });
 app.post('/api/upload/records', (req, res) => {

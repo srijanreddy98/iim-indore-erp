@@ -11,6 +11,7 @@ var updateTimeTable = () => {
     var toPush = [];
     var Date = '';
     var Day = '';
+    var errors = '';
     for (i of xlData) {
         var j = 1;
         if (i.Date) {
@@ -21,6 +22,10 @@ var updateTimeTable = () => {
         nm = 1;
         while (nm < 10) {
             if (i['Session ' + nm]) {
+                if (isNaN(i['Session ' + nm].split(' ').length ===2 && i['Session ' + nm].split(' ')[1])){
+                    console.log('error');
+                    errors += '<br>' + i['Session ' + nm];
+                }
                 var tim = {
                     Day: Day,
                     Date: moment(Date),
@@ -33,6 +38,9 @@ var updateTimeTable = () => {
             }
             nm++;
         }
+    }
+    if (errors !== '') {
+        return errors;
     }
     for (i of toPush) {
         var j = 1;
