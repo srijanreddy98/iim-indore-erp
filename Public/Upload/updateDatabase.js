@@ -9,38 +9,18 @@ var updateTimeTable = () => {
     var sheet_name_list = workbook.SheetNames;
     var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
     var toPush = [];
-    var Date = '';
-    var Day = '';
-    var errors = '';
     for (i of xlData) {
-        var j = 1;
-        if (i.Date) {
-            var da = i.Date.split('/');
-            Date = da[2] + '-' + da[1] + '-' + da[0];
-            Day = i.Day;
-        }
-        nm = 1;
-        while (nm < 10) {
-            if (i['Session ' + nm]) {
-                if (isNaN(i['Session ' + nm].split(' ').length ===2 && i['Session ' + nm].split(' ')[1])){
-                    console.log('error');
-                    errors += '<br>' + i['Session ' + nm];
-                }
-                var tim = {
-                    Day: Day,
-                    Date: moment(Date),
-                    Time: nm,
-                    Session_No: i['Session ' + nm].split(' ')[1],
-                    ClassRoom: i['Classroom No.'],
-                    Subject: i['Session ' + nm].split(' ')[0]
-                };
-                toPush.push(tim);
-            }
-            nm++;
-        }
-    }
-    if (errors !== '') {
-        return errors;
+        var da = i.Date.split('/');
+        var date = da[2] + '-' + da[1] + '-' + da[0];
+        console.log(date);
+        var tim = {
+            Date: moment(date, 'YY-DD-MM').isValid() ? moment(date, 'YY-DD-MM') : date,
+            Time: i.Day_Session.split(' ')[1],
+            Session_No: i.Class_No,
+            ClassRoom: i['Classroom'],
+            Subject: i.Subjects
+        };
+        toPush.push(tim);
     }
     for (i of toPush) {
         var j = 1;

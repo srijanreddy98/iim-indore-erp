@@ -42,7 +42,6 @@ const subjectsSchema = new Schema({
 
 const timeTableSchema = new Schema({
     Subject: String,
-    Day: String,
     Date: String,
     Time: String,
     Session_No: String,

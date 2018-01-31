@@ -11,6 +11,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://srijanreddy98:chintu98@ds161336.mlab.com:61336/iimindoredb');
