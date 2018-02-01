@@ -71,7 +71,7 @@ var routes = (app) => {
   app.get('/api/admin/getRecordData', (req,res) => {
     var decoded;
     try {
-      var decoded = jwt.verify(req.headers('x-auth'));
+      var decoded = jwt.verify(req.cookies['x-auth']);
       console.log(decoded);
       if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in'){
         Record.findById(req.query.id).then(
@@ -81,11 +81,12 @@ var routes = (app) => {
       }
     }
     catch (e) {
+      console.log(e);
       res.status(401).send(e);
     }
   });
   app.post('/api/admin/login', (req, res) => {
-    if ((req.body.email === 'srijanreddy98@gmail.com' || req.body.email === 'acadcom@iimidr.ac.in') && req.body.password === 'password' ){
+    if ( req.body.password === 'password' ){
       var resp = {
         'x-auth': jwt.sign({ email: req.body.email}, 'key'),
       };
@@ -113,6 +114,22 @@ var routes = (app) => {
   app.get('/api/admin/downloadRecords', (req, res) => {
     res.sendFile(path.join(__dirname + '/../Public/Upload', 'myImage.PNG'));
   });
+  app.post('api/admin/verify', (req, res) => {
+    var decoded;
+    try {
+      var decoded = jwt.verify(req.cookies['x-auth']);
+      console.log(decoded);
+      if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in') {
+          res.send('Authorized');
+      } else {
+        res.status(401).send({error: 'Unauthorized'});
+      }
+    }
+    catch (e) {
+      console.log(e);
+      res.status(401).send(e);
+    }
+  }); 
 }
 module.exports = {
   routes

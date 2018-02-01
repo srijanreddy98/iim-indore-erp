@@ -12,7 +12,6 @@ var updateTimeTable = () => {
     for (i of xlData) {
         var da = i.Date.split('/');
         var date = da[2] + '-' + da[1] + '-' + da[0];
-        console.log(date);
         var tim = {
             Date: moment(date, 'YY-DD-MM').isValid() ? moment(date, 'YY-DD-MM') : date,
             Time: i.Day_Session.split(' ')[1],
