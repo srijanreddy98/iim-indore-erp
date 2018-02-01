@@ -110,6 +110,21 @@ app.post('/api/upload/subjectNames', (req, res) => {
     }
   })
 });
+app.get('/api/upload/records', (req, res) => {
+  res.sendFile(__dirname +'/Public/Upload/records.xlsx');
+});
+app.get('/api/upload/timetable', (req, res) => {
+  res.sendFile(__dirname + '/Public/Upload/timetable.xlsx');
+});
+app.get('/api/upload/users', (req, res) => {
+  res.sendFile(__dirname + '/Public/Upload/users.xlsx');
+});
+app.get('/api/upload/subjects', (req, res) => {
+  res.sendFile(__dirname + '/Public/Upload/subjects.xlsx');
+});
+app.get('/api/upload/subjectNames', (req, res) => {
+  res.sendFile(__dirname + '/Public/Upload/subjectNames.xlsx');
+});
 app.use(passport.initialize());
 app.use(passport.session());
 routes(app);
