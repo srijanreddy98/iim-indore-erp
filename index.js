@@ -13,6 +13,9 @@ var cookieParser = require('cookie-parser');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
+var XLSX = require('xlsx');
+const fs = require('fs');
+const json2xls = require('json2xls');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://srijanreddy98:chintu98@ds161336.mlab.com:61336/iimindoredb');
 const app = express();
@@ -114,7 +117,25 @@ app.get('/api/upload/records', (req, res) => {
   res.sendFile(__dirname +'/Public/Upload/records.xlsx');
 });
 app.get('/api/upload/timetable', (req, res) => {
-  res.sendFile(__dirname + '/Public/Upload/timetable.xlsx');
+  // res.sendFile(__dirname + '/Public/Upload/timetable.xlsx');
+  TimeTable.find({}).then(
+    (docs) => {
+      var arr = [];
+      for (i of docs){
+      var k = {
+        Date: i.Date,
+        Time: i.Time,
+        Session_No: i.Session_No,
+        ClassRoom: i.ClassRoom,
+        Subject: i.Subject,
+      }; arr.push(k)}
+      var xls = json2xls(arr);
+      fs.writeFileSync(__dirname + '/Public/Latest/timetable.xlsx', xls, 'binary');
+      console.log('hey');
+      res.sendFile(__dirname + '/Public/Latest/timetable.xlsx');
+    },
+    (err) => res.send(err)
+  );
 });
 app.get('/api/upload/users', (req, res) => {
   res.sendFile(__dirname + '/Public/Upload/users.xlsx');
