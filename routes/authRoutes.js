@@ -117,7 +117,7 @@ var routes = (app) => {
   app.post('api/admin/verify', (req, res) => {
     var decoded;
     try {
-      var decoded = jwt.verify(req.cookies['x-auth']);
+      var decoded = jwt.verify(req.cookies['x-auth'], 'key');
       console.log(decoded);
       if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in') {
           res.send('Authorized');
@@ -129,7 +129,64 @@ var routes = (app) => {
       console.log(e);
       res.status(401).send(e);
     }
-  }); 
+  });
+  app.get('/api/admin/records', (req, res) => {
+    var decoded;
+    try {
+      var decoded = jwt.verify(req.cookies['x-auth'], 'key');
+      console.log(decoded);
+      if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in') {
+        Record.find({}).then(
+          (docs) => res.send(docs),
+          (err) => res.status(500).send(err)
+        );
+      } else {
+        res.status(401).send({ error: 'Unauthorized' });
+      }
+    }
+    catch (e) {
+      console.log(e);
+      res.status(401).send(e);
+    }
+  });
+  app.get('/api/admin/users', (req, res) => {
+    var decoded;
+    try {
+      var decoded = jwt.verify(req.cookies['x-auth'], 'key');
+      console.log(decoded);
+      if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in') {
+        User.find({}).then(
+          (docs) => res.send(docs),
+          (err) => res.status(500).send(err)
+        );
+      } else {
+        res.status(401).send({ error: 'Unauthorized' });
+      }
+    }
+    catch (e) {
+      console.log(e);
+      res.status(401).send(e);
+    }
+  });
+  app.get('/api/admin/timetable', (req, res) => {
+    var decoded;
+    try {
+      var decoded = jwt.verify(req.cookies['x-auth'], 'key');
+      console.log(decoded);
+      if (decoded.email === 'srijanreddy98@gmail.com' || decoded.email === 'acadcom@iimidr.ac.in') {
+        TimeTable.find({}).then(
+          (docs) => res.send(docs),
+          (err) => res.status(500).send(err)
+        );
+      } else {
+        res.status(401).send({ error: 'Unauthorized' });
+      }
+    }
+    catch (e) {
+      console.log(e);
+      res.status(401).send(e);
+    }
+  });
 }
 module.exports = {
   routes
